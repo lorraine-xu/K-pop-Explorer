@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+  <script type="text/javascript" src="{{ url_for('static', filename = 'add_item.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+  <div class="container my-5">
+    <h1 class="mb-4 text-center">Add New Group</h1>
+    
+    <form id="add-item-form" method="POST" action="/add">
+        <!-- Row 1: Group Name and Fandom -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="group_name" class="form-label">Group Name</label>
+                <input type="text" id="group_name" name="group_name" class="form-control">
+                <div id="group_name_error" class="error-message"></div>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="fandom" class="form-label">Fandom</label>
+                <input type="text" id="fandom" name="fandom" class="form-control">
+                <div id="fandom_error" class="error-message"></div>
+            </div>
+        </div>
+        
+        <!-- Row 2: Debut Year and Rating -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="debut_year" class="form-label">Debut Year</label>
+                <input type="text" id="debut_year" name="debut_year" class="form-control">
+                <div id="debut_year_error" class="error-message"></div>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="rating" class="form-label">Rating</label>
+                <input type="text" id="rating" name="rating" class="form-control">
+                <div id="rating_error" class="error-message"></div>
+            </div>
+        </div>
+        
+        <!-- Row 3: Other fields -->
+        <div class="mb-3">
+            <label for="image" class="form-label">Image URL</label>
+            <input type="text" id="image" name="image" class="form-control">
+            <div id="image_error" class="error-message"></div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="introduction" class="form-label">Introduction</label>
+            <textarea id="introduction" name="introduction" class="form-control"></textarea>
+            <div id="introduction_error" class="error-message"></div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="members" class="form-label">Members</label>
+                <div id="members-container">
+                    <div class="input-group mb-2" id="members-group-1">
+                        <input type="text" id="members-1" name="members[]" class="form-control">
+                        <button type="button" class="btn btn-outline-secondary cute-btn" onclick="addField('members')">+</button>
+                        <button type="button" class="btn btn-outline-secondary cute-btn remove-btn" style="display:none;">-</button>
+                    </div>
+                </div>
+                <div id="members_error" class="error-message"></div>
+            </div>
+    
+            <div class="col-md-4">
+                <label for="discography" class="form-label">Discography</label>
+                <div id="discography-container">
+                    <div class="input-group mb-2" id="discography-group-1">
+                        <input type="text" id="discography-1" name="discography[]" class="form-control">
+                        <button type="button" class="btn btn-outline-secondary cute-btn" onclick="addField('discography')">+</button>
+                        <button type="button" class="btn btn-outline-secondary cute-btn remove-btn" style="display:none;">-</button>
+                    </div>
+                </div>
+                <div id="discography_error" class="error-message"></div>
+            </div>
+    
+            <div class="col-md-4">
+                <label for="recommended_songs" class="form-label">Recommended Songs</label>
+                <div id="recommended-songs-container">
+                    <div class="input-group mb-2" id="recommended-songs-group-1">
+                        <input type="text" id="recommended_songs-1" name="recommended_songs[]" class="form-control">
+                        <button type="button" class="btn btn-outline-secondary cute-btn" onclick="addField('recommended_songs')">+</button>
+                        <button type="button" class="btn btn-outline-secondary cute-btn remove-btn" style="display:none;">-</button>
+                    </div>
+                </div>
+                <div id="recommended_songs_error" class="error-message"></div>
+            </div>
+        </div>                                                                     
+
+        <!-- Row 4: Select Similar Groups -->
+        <div class="mb-3">
+            <label for="similar_groups" class="form-label">Select Similar Groups</label>
+            <div id="similar_groups">
+                {% for group in available_groups %}
+                    <div class="form-check d-inline-block">
+                        <input class="form-check-input" type="checkbox" id="similar_group_{{ group.id }}" name="similar_groups" value="{{ group.id }}">
+                        <label class="form-check-label" for="similar_group_{{ group.id }}">
+                            {{ group.name }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="similar_groups_error" class="error-message"></div>
+        </div>        
+        
+        <button type="submit" class="btn btn-primary w-100 mt-4">Submit</button>
+    </form>
+
+    <!-- Error and Success messages -->
+    <div id="error-message" class="mt-3 text-danger"></div>
+    <div id="success-message" class="mt-3 text-success"></div>
+</div>
+
+{% endblock %}

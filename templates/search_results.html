@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+  <script type="text/javascript" src="{{ url_for('static', filename='search_results.js') }}"></script>
+  <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+    
+  <script>
+    // Get the results and query passed from Flask
+    let results = {{ results | tojson }};
+    let query = "{{ query }}";  // Get the query from the URL
+    let resultCount = {{ result_count }};
+  </script>
+
+  <div id="search_results_container">
+  </div>
+{% endblock %}

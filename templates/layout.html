@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+
+    <!-- jquery -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>  
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+
+    <title>K-pop Groups</title>
+    <script>
+      $(document).ready(function () {
+        // Handle search form submission
+        $("#search_bar").on( "submit", function( event ) {
+          event.preventDefault();  // Prevent form from submitting the traditional way
+          let query = $("input[name='query']").val();  // Get the search query from the input
+      
+          // Check if the query is empty or just whitespace
+          if (query.trim() === "") {
+            $("input[name='query']").val("");  // Clear the search bar
+            $("input[name='query']").focus();  // Focus on the search bar
+            return;  // Stop further execution, no search will be performed
+          }
+
+          // Update the URL with the search query
+          let url = '/search_results/' + encodeURIComponent(query);
+
+          // Make AJAX request
+          $.ajax({
+            url: url,  // The URL for searching
+            method: "GET",
+            success: function (response) {
+              // Replace the current content with the search results
+              window.location.href = url;
+            },
+            error: function () {
+              console.log("Error in fetching search results.")
+            }
+          });
+        });
+
+        $("input[name='query']").keypress(function (event) {
+          if (event.which === 13) {  // Enter key pressed
+            $("#search_bar").on("submit");  // Trigger the form submission
+          }
+        });
+      });
+    </script>
+    <style>
+      .background-image::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-size: cover;
+          background-image: url('{{ url_for("static", filename="background_image.jpg") }}');
+          background-position: 0% 27%;
+          filter: grayscale(100%); /* Apply grayscale and brightness */
+          opacity: 0.1; /* Make the image transparent without affecting the text */
+          z-index: -1; /* Ensure it stays behind the content */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background-image">
+      <div class="container">
+        <h1>The Most Extraordinary K-pop Groups</h1>
+        <p>Explore K-pop and your favorite groups with youngsters all over the world!</p>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="/">K-pop Explorer</a>
+        <a class="add-new-group" href="{{ url_for('add_item') }}">Add New Group</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ml-auto">
+            <form id="search_bar" action="search.html">
+              <input type="text" name="query" placeholder="Search for a group/keyword/member" class="rounded-input">
+              <button type="submit" class="btn btn-purple">Search</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">   
+        {% block content %}
+        {% endblock %}
+    </div>
+  </body>
+</html>

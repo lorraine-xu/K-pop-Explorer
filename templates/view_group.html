@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <link rel="stylesheet" href="{{url_for('static', filename='view_group.css')}}">
+  <script>
+    let group = {{group|tojson}};
+    console.log("group: ", group);
+  </script>
+
+  <h1>{{ group['group name'] }}
+    <span class="rating-tag">
+      <span class="star-icon">★</span>
+      <span class="rating-number">{{ group['rating'] }}</span>
+    </span>
+  </h1>
+  <h5>Since {{ group['debut year'] }}</h5>
+  <p id="members">{{ group['members'] | join(' · ') }}</p>
+
+  <div class="row">
+    <!-- Left Column for Group Image -->
+    <div class="col-md-6">
+      <img src="{{ group['image'] }}" class="img-fluid" alt="{{ group['group name'] }}">
+    </div>
+
+    <!-- Right Column for Group Information -->
+    <div class="col-md-6">
+      <!-- Special Font for "Want to Become a Blink" -->
+      <p><span class="special-font">"Want to become a '{{ group['fandom']}}'?"</span></p>
+      <p class="answers">{{ group['introduction'] }}</p>
+      <p class="questions">Representative Albums?</p>
+      <div class="answers">
+        <ul class="column-list">
+          {% for item in group['discography'] %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <p class="questions">Recommended Songs?</p>
+      <div class="answers">
+        <ul class="column-list">
+          {% for item in group['recommended songs'] %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+
+      <p id="similar-groups-question">Similar Groups?</p>
+      <div class="row">
+          <div class="col-md-10">
+              <!-- Similar Groups Section with Clickable Links -->
+              <div class="similar-groups">
+                  {% for similar_group in group['similar_group_names'] %}
+                      <button class="similar-group-btn" onclick="window.location.href='{{ url_for('view_item', id=similar_group['id']) }}'">
+                          {{ similar_group['group name'] }}
+                      </button>
+                  {% endfor %}
+              </div>
+          </div>
+
+          <div class="col-md-2">
+                <a href="{{ url_for('edit_item', id=group['id']) }}" class="custom-edit-btn">Edit</a>
+          </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

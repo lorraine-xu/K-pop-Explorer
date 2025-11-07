@@ -1,0 +1,256 @@
+.group-name {
+    cursor: pointer;
+}  
+
+.background-image {
+    position: relative; /* Ensure the content sits on top */
+    background-size: cover;
+    height: 25vh;
+    padding: 60px 20px;
+    z-index: 1; /* Ensure content is above the background image */
+}
+
+.navbar {
+    background-color: rgba(255, 182, 193, 0.4); /* Semi-transparent background for the navbar */
+    z-index: 1; /* Ensure navbar is on top of the background image */
+}
+
+.navbar a {
+    color: rgba(90, 90, 90, 1) !important; /* Set the text inside navbar links to grey */
+}
+
+p {
+    font-size: 17px;
+    white-space: pre-wrap;
+}
+
+.navbar-nav.ml-auto {
+    margin-left: auto; /* This will push the search bar to the right side of the navbar */
+}
+
+.add-new-group {
+    color: rgba(90, 90, 90, 1);
+    font-size: 16px;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.rounded-input {
+    width: 307px;
+    border-radius: 15px; /* Round the input field */
+    padding: 4px 20px; /* Add padding for better appearance */
+    border: 1px solid #ccc; /* Light grey border */
+    margin-right: 2px; /* Add space between the input and the button */
+}
+
+/* Style the submit button */
+.btn-purple {
+    background-color: #6f42c1; /* Purple background */
+    color: white; /* White text */
+    border-radius: 15px; /* Round the button */
+    padding: 4px 20px; /* Add padding for better appearance */
+    border: none; /* Remove the default border */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.btn-purple:hover {
+    background-color: #5a2e9d; /* Darker purple on hover */
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+  
+.card:hover {
+    transform: translateY(-10px); /* Lift card effect on hover */
+}
+  
+.card-img-top {
+    height: 200px;
+    object-fit: cover; /* Ensure images are well cropped */
+}
+  
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+  
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+  
+.members {
+    margin-top: 10px;
+    font-size: 1rem;
+}
+  
+.badge-light-pink {
+    background-color: #f5a3c7; /* Light pink background for member tags */
+    color: white;
+    margin-right: 5px;
+}
+  
+.rating {
+    margin-top: 10px;
+    font-size: 1rem;
+}
+  
+.badge-primary {
+    background-color: #007bff;
+    color: white;
+}  
+
+#groups_container {
+    margin-top: 30px; /* Adjust the value as needed */
+}
+
+.highlight {
+    background-color: yellow; /* Highlight color */
+    font-weight: bold;
+}
+
+.member-highlight {
+    background-color: yellow; /* Highlight color */
+    color: black;
+}
+
+/* Ensure that cards have the same height */
+.card-fixed-height {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Adjust for card body consistency */
+.card-body {
+    flex-grow: 1; /* Allow the body to grow and take up the remaining space in the card */
+}
+
+/* Adjust card layout for a single result */
+#search_results_container .row {
+    justify-content: start; /* Ensure that cards are aligned to the left */
+}
+
+#search_results_container h4 {
+    margin-top: 20px; /* Add a margin at the top of the search query */
+}
+  
+.result-count {
+    color: grey; /* Change the color of the result count to grey */
+    margin-top: 10px; /* Add some gap between the search query and result count */
+    margin-bottom: 20px; /* Add a margin below the result count */
+}
+
+/* Button container with flex for proper alignment */
+.input-group-append {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Button styling for both plus and minus buttons */
+.cute-btn {
+    width: 20px; /* Small size for the button */
+    height: 20px; /* Make the button circular */
+    border-radius: 50%; /* Circular button */
+    padding: 5px; /* Adds some padding inside */
+    font-size: 18px; /* Adjust font size */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Ensures vertical alignment of the text */
+    margin-left: 10px; /* Adds gap between the input and the button */
+}
+
+/* Initially hidden minus button */
+.remove-btn {
+    display: inline-block;
+}
+
+/* Hover effect for both buttons */
+.cute-btn:hover {
+    background-color: #f0f0f0; /* Light grey background on hover */
+    cursor: pointer; /* Show a pointer cursor on hover */
+}
+
+/* Ensuring the buttons are aligned correctly even if the minus button is hidden */
+.input-group-append button {
+    margin-right: 0; /* Remove extra space from the right side */
+}
+
+/* Ensure the minus sign is centered */
+.remove-btn {
+    font-size: 20px; /* Adjust the size of the minus sign */
+    line-height: 0; /* Remove any extra spacing around the minus sign */
+}
+
+/* Flex container to align checkboxes horizontally */
+#similar_groups {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping to the next line if space is constrained */
+    gap: 10px; /* Adds space between the checkboxes */
+}
+
+/* Each checkbox item takes up 1/4 of the container width */
+.form-check {
+    display: inline-block;
+    width: calc(25% - 10px); /* Four items per row with some space between */
+    box-sizing: border-box; /* Ensures padding and margin are included in the width calculation */
+}
+
+/* Ensuring labels are centered and the checkboxes align properly */
+.form-check label {
+    display: block;
+}
+
+/* Style for both buttons */
+.custom-btn {
+    display: inline-block;
+    padding: 12px 25px; /* Comfortable padding */
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+    border-radius: 5px; /* Slight rounded corners */
+    cursor: pointer; /* Change cursor to indicate it's clickable */
+    text-decoration: none; /* Remove underline */
+    margin-right: 10px; /* Space between the two buttons */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: white; /* White text color */
+    background-color: #007bff; /* Blue background */
+    border: none;
+}
+
+/* Hover effect */
+.custom-btn:hover {
+    background-color: #0056b3; /* Slightly darker blue for hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;  /* Hide by default */
+}
+
+/* Optional: Custom styles for the modal if not using Bootstrap */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Background color */
+    z-index: 1000;
+}
+
+.modal-content {
+    margin: 15% auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    width: 400px;
+}

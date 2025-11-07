@@ -1,0 +1,169 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <script type="text/javascript" src="{{ url_for('static', filename = 'edit_item.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+    <script>
+        let group = {{ group|tojson }};
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pass the Python list to JavaScript by using the `tojson` filter and ensure proper quoting
+            var similarGroups = {{ group['similar groups'] | tojson }};
+            
+            // Check if the data is correctly passed to JavaScript
+            console.log("similarGroups: ", similarGroups);
+
+            // Example usage of similarGroups array
+            document.querySelectorAll('.form-check-input').forEach(function(checkbox) {
+                var checkboxValue = checkbox.value;
+                
+                // Check if the checkbox value is in the similarGroups array and mark as checked
+                if (similarGroups.includes(checkboxValue)) {
+                    checkbox.checked = true;
+                }
+            });
+        });
+    </script>
+
+    <div class="container my-5">
+        <h1 class="mb-4 text-center">Edit Group</h1>
+
+        <form id="edit-item-form" method="POST">
+            <!-- Row 1: Group Name and Fandom -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="group_name" class="form-label">Group Name</label>
+                    <input type="text" id="group_name" name="group_name" class="form-control" value="{{ group['group name'] }}">
+                    <div id="group_name_error" class="error-message"></div>
+                </div>
+                <div class="col-md-6">
+                    <label for="fandom" class="form-label">Fandom</label>
+                    <input type="text" id="fandom" name="fandom" class="form-control" value="{{ group['fandom'] }}">
+                    <div id="fandom_error" class="error-message"></div>
+                </div>
+            </div>
+
+            <!-- Row 2: Debut Year and Rating -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="debut_year" class="form-label">Debut Year</label>
+                    <input type="text" id="debut_year" name="debut_year" class="form-control" value="{{ group['debut year'] }}">
+                    <div id="debut_year_error" class="error-message"></div>
+                </div>
+                <div class="col-md-6">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="text" id="rating" name="rating" class="form-control" value="{{ group['rating'] }}">
+                    <div id="rating_error" class="error-message"></div>
+                </div>
+            </div>
+
+            <!-- Row 3: Other fields -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Image URL</label>
+                <input type="text" id="image" name="image" class="form-control" value="{{ group['image'] }}">
+                <div id="image_error" class="error-message"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="introduction" class="form-label">Introduction</label>
+                <textarea id="introduction" name="introduction" class="form-control">{{ group['introduction'] }}</textarea>
+                <div id="introduction_error" class="error-message"></div>
+            </div>
+
+            <!-- Row 4: Members, Discography, Recommended Songs -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="members" class="form-label">Members</label>
+                    <div id="members-container">
+                        {% for member in group['members'] %}
+                            <div class="input-group mb-2">
+                                <input type="text" name="members[]" class="form-control" value="{{ member }}">
+                                <button type="button" class="btn btn-outline-secondary cute-btn" onclick="addField('members')">+</button>
+                                <button type="button" class="btn btn-outline-secondary cute-btn remove-btn" 
+                                    {% if loop.index == 1 %} style="display:none;" {% else %} style="display:inline-block;" {% endif %} onclick="removeField(this)">
+                                    -
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div id="members_error" class="error-message"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="discography" class="form-label">Discography</label>
+                    <div id="discography-container">
+                        {% for disc in group['discography'] %}
+                            <div class="input-group mb-2">
+                                <input type="text" name="discography[]" class="form-control" value="{{ disc }}">
+                                <button type="button" class="btn btn-outline-secondary cute-btn" onclick="addField('discography')">+</button>
+                                <button type="button" class="btn btn-outline-secondary cute-btn remove-btn" 
+                                    {% if loop.index == 1 %} style="display:none;" {% else %} style="display:inline-block;" {% endif %} onclick="removeField(this)">
+                                    -
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div id="discography_error" class="error-message"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="recommended_songs" class="form-label">Recommended Songs</label>
+                    <div id="recommended-songs-container">
+                        {% for song in group['recommended songs'] %}
+                            <div class="input-group mb-2">
+                                <input type="text" name="recommended_songs[]" class="form-control" value="{{ song }}">
+                                <button type="button" class="btn btn-outline-secondary cute-btn" onclick="addField('recommended_songs')">+</button>
+                                <button type="button" class="btn btn-outline-secondary cute-btn remove-btn" 
+                                    {% if loop.index == 1 %} style="display:none;" {% else %} style="display:inline-block;" {% endif %} onclick="removeField(this)">
+                                    -
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div id="recommended_songs_error" class="error-message"></div>
+                </div>
+            </div>
+
+            <!-- Row 5: Select Similar Groups -->
+            <div class="mb-3">
+                <label for="similar_groups" class="form-label">Select Similar Groups</label>
+                <div id="similar_groups">
+                    {% for group in available_groups %}
+                        <div class="form-check d-inline-block">
+                            <input class="form-check-input" type="checkbox" id="similar_group_{{ group.id }}" name="similar_groups" value="{{ group.id }}" {% if group.id in group['similar groups']|map(attribute='int') %}checked{% endif %}>
+                            <label class="form-check-label" for="similar_group_{{ group.id }}">
+                                {{ group.name }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="similar_groups_error" class="error-message"></div>
+            </div>     
+
+            <button type="submit" class="btn btn-primary w-100 mt-4">Submit</button>
+            <button type="button" class="btn btn-secondary w-100 mt-2" id="discard-btn">Discard Changes</button>
+        </form>
+
+        <div id="error-message" class="mt-3 text-danger"></div>
+
+        <div class="modal" id="discardModal" tabindex="-1" aria-labelledby="discardModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="discardModalLabel">Discard Changes</h5>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to discard your changes?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-danger" id="confirm-discard-btn">Yes, Discard</button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

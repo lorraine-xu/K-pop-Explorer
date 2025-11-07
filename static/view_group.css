@@ -1,0 +1,122 @@
+h1 {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+}
+
+h5 {
+    color: rgba(100, 100, 100, 1);
+    border-bottom: 1.5px solid rgba(170, 170, 170, 1);
+    padding-bottom: 5px;
+}
+
+.rating-tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(230, 230, 230, 0.8); /* Light grey background similar to the screenshot */
+    padding: 5px 10px;
+    border-radius: 25px; /* Rounded corners */
+    margin-left: 20px;
+    font-size: 18px;
+}
+  
+.star-icon {
+    margin-right: 5px; /* Adds some space between the star and the number */
+}
+  
+.rating-number {
+    font-weight: bold;
+    color: black;
+}
+
+#members {
+    color: rgba(120, 120, 120, 1);
+    font-size: 18px;
+    margin-top: -5px;
+}
+
+.answers {
+    margin-bottom: 25px;
+    color: rgb(100, 100, 100);
+}
+
+.questions {
+    margin-bottom: 5px;
+    color: rgb(170, 170, 170);
+}
+
+.column-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+  
+.column-list li {
+    width: 50%; /* Divide the list into two columns */
+    box-sizing: border-box;
+    padding-bottom: 5px; /* Adds space between items */
+}  
+
+/* Special font for "Want to become a Blink?" */
+.special-font {
+    font-family: Bradley Hand, cursive;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: rgb(100, 100, 100);
+}
+
+#similar-groups-question {
+    margin-top: 60px;
+    margin-bottom: 5px;
+    color: rgb(170, 170, 170);
+    font-size: 14px;
+    justify-content: left;
+    display: flex;
+}
+  
+/* Styling for the rating */
+.rating {
+    color: #ffcc00; /* You can adjust this color to match your design */
+    font-weight: bold;
+}
+  
+.similar-groups {
+    display: flex;
+    gap: 10px; /* Adds space between buttons */
+    margin-bottom: 40px;
+    justify-content: left;
+}
+  
+.similar-group-btn {
+    background-color: #6f42c1; /* Purple background */
+    color: white; /* White text */
+    border: none;
+    padding: 2px 30px; /* Adds padding to the buttons */
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 20px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    margin-right: 5px;
+}
+  
+.similar-group-btn:hover {
+    background-color: darkviolet; /* Darker purple on hover */
+}  
+
+.custom-edit-btn {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: right; /* Ensures the icon and text are aligned */
+    color: rgb(170, 170, 170);
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.custom-edit-btn:hover {
+    color: grey;
+    cursor: pointer;
+}
