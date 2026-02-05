@@ -52,7 +52,7 @@ The K‑pop Explorer website is designed as a simple CRUD-style application cent
 
 ## 🎥 Demo Video
 
-[Watch the demo on YouTube]([https://youtu.be/EKRNJkGr39c](https://youtu.be/n_SqJQC0hTM))
+[Watch the demo on YouTube](https://youtu.be/n_SqJQC0hTM)
 
 ---
 
